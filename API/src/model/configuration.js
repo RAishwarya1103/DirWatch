@@ -18,13 +18,10 @@ const Configuration = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-<<<<<<< HEAD
     period: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-=======
->>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
     magicString: {
       type: Sequelize.STRING,
       allowNull: false,

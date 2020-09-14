@@ -2,17 +2,10 @@ const moment = require("moment");
 
 const Task = require("../model/task");
 const { logger, sequelize } = require("../utils");
-<<<<<<< HEAD
 const { Op } = require("sequelize");
 
 exports.getTask = async (req, res, next) => {
   logger.debug(`Entered function getTask with params: ${req.params.taskId}`);
-=======
-const { Op, dialect, literal } = require("sequelize");
-
-exports.getTask = async (req, res, next) => {
-  logger.debug(`Entered function getTask with params: ${req},${res}`);
->>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
 
   try {
     const taskId = req.params.taskId;
@@ -30,6 +23,7 @@ exports.getTask = async (req, res, next) => {
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
+      err.message = `Error occured while fetching task detail for the id ${req.params.taskId}`;
     }
     logger.error(`Error in getTask: ${err}`);
 
@@ -37,11 +31,7 @@ exports.getTask = async (req, res, next) => {
   }
 };
 exports.getAllTask = async (req, res, next) => {
-<<<<<<< HEAD
   logger.debug(`Entered function getAllTask`);
-=======
-  logger.debug(`Entered function getAllTask with params: ${req},${res}`);
->>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
   try {
     let tasks = await Task.findAll();
     let taskDetail = await tasks.map(async (item) => {
@@ -56,6 +46,7 @@ exports.getAllTask = async (req, res, next) => {
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
+      err.message = `Error occured while fetching task details`;
     }
     logger.error(`Error in getAllTask: ${err}`);
 

@@ -14,10 +14,7 @@ router.post(
     body("directory").trim().not().isEmpty(),
     body("isActive").not().isEmpty().isBoolean(),
     body("interval").not().isEmpty().isNumeric(),
-<<<<<<< HEAD
     body("period").trim().not().isEmpty(),
-=======
->>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
   ],
   configController.createConfig
 );
@@ -28,25 +25,3 @@ router.put(
 );
 
 module.exports = router;
-
-/*
-
-[
-    body("email")
-      .trim()
-      .isEmail()
-      .withMessage("Please enter valid email")
-      .custom((value, { req }) => {
-        return User.findOne({ email: value }).then((userDoc) => {
-          if (userDoc) {
-            return Promise.reject("email address already exists!");
-          }
-        });
-      })
-      .normalizeEmail(),
-    body("password").trim().isLength({ min: 5 }),
-    body("name").trim().not().isEmpty(),
-  ],
-
-
-*/
