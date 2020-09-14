@@ -4,7 +4,11 @@ const { Op } = require("sequelize");
 const { validationResult } = require("express-validator");
 
 exports.getAllConfig = async (req, res, next) => {
+<<<<<<< HEAD
   logger.debug(`Entered function getAllConfig`);
+=======
+  logger.debug(`Entered function getAllConfig with params: ${req},${res}`);
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
 
   try {
     const configs = await Configuration.findAll();
@@ -21,7 +25,11 @@ exports.getAllConfig = async (req, res, next) => {
 };
 
 exports.getActiveConfig = async (req, res, next) => {
+<<<<<<< HEAD
   logger.debug(`Entered function getActiveConfig`);
+=======
+  logger.debug(`Entered function getActiveConfig with params: ${req},${res}`);
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
   try {
     const config = await Configuration.findAll({
       where: {
@@ -43,9 +51,13 @@ exports.getActiveConfig = async (req, res, next) => {
 };
 
 exports.createConfig = async (req, res, next) => {
+<<<<<<< HEAD
   logger.debug(
     `Entered function createConfig with params: ${req.body.directory},${req.body.magicString},${req.body.interval},${req.body.isActive},${req.body.period}`
   );
+=======
+  logger.debug(`Entered function createConfig with params: ${req},${res}`);
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
 
   try {
     const errors = validationResult(req);
@@ -58,16 +70,26 @@ exports.createConfig = async (req, res, next) => {
     const directory = req.body.directory;
     const magicString = req.body.magicString;
     const interval = req.body.interval;
+<<<<<<< HEAD
     const isActive = req.body.isActive;
     const period = req.body.period;
+=======
+    const schedule = req.body.schedule;
+    const isActive = req.body.isActive;
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
     const result = await updateAllConfigStatus(false);
     if (result) {
       await Configuration.create({
         directory: directory,
         magicString: magicString,
         interval: interval,
+<<<<<<< HEAD
         isActive: isActive,
         period: period,
+=======
+        schedule: schedule,
+        isActive: isActive,
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
       });
       return res.status(200).json({ message: "Added new config" });
     } else {
@@ -84,7 +106,11 @@ exports.createConfig = async (req, res, next) => {
 };
 exports.updateConfigStatus = async (req, res, next) => {
   logger.debug(
+<<<<<<< HEAD
     `Entered function updateConfigStatus with params: ${req.body.isActive},${req.params.configId}`
+=======
+    `Entered function updateConfigStatus with params: ${req},${res}`
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
   );
   try {
     const errors = validationResult(req);
@@ -125,7 +151,10 @@ function updateAllConfigStatus(isActive) {
     Configuration.update({ isActive: isActive }, { where: {} })
       .then(() => resolve(true))
       .catch((err) => {
+<<<<<<< HEAD
         logger.error(`Error in updateAllConfigStatus: ${err}`);
+=======
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
         throw err;
       });
   });

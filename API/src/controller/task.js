@@ -2,10 +2,17 @@ const moment = require("moment");
 
 const Task = require("../model/task");
 const { logger, sequelize } = require("../utils");
+<<<<<<< HEAD
 const { Op } = require("sequelize");
 
 exports.getTask = async (req, res, next) => {
   logger.debug(`Entered function getTask with params: ${req.params.taskId}`);
+=======
+const { Op, dialect, literal } = require("sequelize");
+
+exports.getTask = async (req, res, next) => {
+  logger.debug(`Entered function getTask with params: ${req},${res}`);
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
 
   try {
     const taskId = req.params.taskId;
@@ -30,7 +37,11 @@ exports.getTask = async (req, res, next) => {
   }
 };
 exports.getAllTask = async (req, res, next) => {
+<<<<<<< HEAD
   logger.debug(`Entered function getAllTask`);
+=======
+  logger.debug(`Entered function getAllTask with params: ${req},${res}`);
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
   try {
     let tasks = await Task.findAll();
     let taskDetail = await tasks.map(async (item) => {

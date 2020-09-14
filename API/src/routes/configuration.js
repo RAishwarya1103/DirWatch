@@ -14,7 +14,10 @@ router.post(
     body("directory").trim().not().isEmpty(),
     body("isActive").not().isEmpty().isBoolean(),
     body("interval").not().isEmpty().isNumeric(),
+<<<<<<< HEAD
     body("period").trim().not().isEmpty(),
+=======
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
   ],
   configController.createConfig
 );

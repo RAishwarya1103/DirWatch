@@ -1,5 +1,9 @@
 const path = require("path");
 const fsp = require("fs").promises;
+<<<<<<< HEAD
+=======
+//const Directory = require("../model/directory");
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
 const { logger } = require("../utils");
 
 async function SearchFileinDir(directory, regExp) {
@@ -56,4 +60,48 @@ async function getFilesFromDirectory(dir) {
     throw new Error(err);
   }
 }
+<<<<<<< HEAD
 module.exports = { SearchFileinDir };
+=======
+
+// async function CreateFileList(fileList, id) {
+//   try {
+//     logger.debug(
+//       `Entered function CreateFileList with params: ${fileList},${id}`
+//     );
+//     await fileList.map((x) => {
+//       Directory.create({
+//         taskId: id,
+//         fileName: x,
+//       });
+//     });
+//     logger.debug(`Exited function CreateFileList.`);
+//   } catch (err) {
+//     logger.error(`Error in CreateFileList: ${err}`);
+//     throw new Error(err);
+//   }
+// }
+module.exports = { SearchFileinDir };
+
+// var fs        = require('fs');
+// var readline  = require('readline');
+
+// var server = http.createServer( function(req, res) {
+//   console.log("Request received.");
+
+//   res.writeHead(200, {"Content-Type": "text/plain"});
+//   res.write("Hello World\n\n\n");
+
+//   readline.createInterface({
+//     input     : fs.createReadStream(process.argv[2]),
+//     terminal  : false
+//   }).on('line', function(line) {
+//     var idx = line.indexOf(THE_SUBSTRING);
+//     if (idx !== -1) {
+//       res.write(line + '\n');
+//     }
+//   }).on('close', function() {
+//     res.end();
+//   });
+// });
+>>>>>>> c1555e073055f5085d292129ae577ef740ec7ae4
