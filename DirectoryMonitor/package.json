@@ -1,0 +1,25 @@
+{
+  "name": "jobscheduler",
+  "version": "1.0.0",
+  "description": "Long running background task which will monitor the configured directory at a scheduled interval of configured time. This will read all the contents of files in the directory and will count the occurrences of configured magic string and save it as a result in the database against that run. It will also note down any new files added and any files got deleted also. ",
+  "main": "app.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aishwarya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.1",
+    "sequelize": "^6.3.5",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
