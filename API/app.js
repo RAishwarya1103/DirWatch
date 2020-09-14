@@ -8,9 +8,11 @@ const PORT = 4000;
 
 app.use(express.json());
 app.use(httpLogger);
-
 app.use("/configuration", configRoutes);
 app.use("/task", taskRoutes);
+app.get("/_health", (req, res) => {
+  res.status(200).send("ok");
+});
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
