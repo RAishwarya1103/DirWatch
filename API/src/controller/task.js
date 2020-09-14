@@ -1,7 +1,7 @@
 const moment = require("moment");
 
 const Task = require("../model/task");
-const { logger, sequelize } = require("../utils");
+const { logger, constants } = require("../utils");
 const { Op } = require("sequelize");
 
 exports.getTask = async (req, res, next) => {
@@ -34,15 +34,19 @@ exports.getAllTask = async (req, res, next) => {
   logger.debug(`Entered function getAllTask`);
   try {
     let tasks = await Task.findAll();
-    let taskDetail = await tasks.map(async (item) => {
-      item.dataValues = await updateTaskDetails(
-        item.dataValues,
-        item.dataValues.id
-      );
-      return item;
+
+    Promise.all(
+      await tasks.map(async (item) => {
+        item.dataValues = await updateTaskDetails(
+          item.dataValues,
+          item.dataValues.id
+        );
+        return item;
+      })
+    ).then((taskDetails) => {
+      logger.debug(`Exited function getAllTask.`);
+      return res.status(200).json({ tasks: taskDetails });
     });
-    logger.debug(`Exited function getAllTask.`);
-    return res.status(200).json({ tasks: taskDetail });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
@@ -53,7 +57,6 @@ exports.getAllTask = async (req, res, next) => {
     next(err);
   }
 };
-
 async function updateTaskDetails(taskDetail, taskId) {
   logger.debug(
     `Entered function updateTaskDetails with params: ${taskDetail},${taskId}`
@@ -81,17 +84,18 @@ async function updateTaskDetails(taskDetail, taskId) {
       prevFileData.length > 0
         ? prevFileData[0].dataValues.fileList.split(" ")
         : prevFileList;
-    let currentFileList = taskDetails.fileList.split(" ");
-    let filesAdded = currentFileList.filter((file) => {
-      return !prevFileList.includes(file);
-    });
-    let filesDeleted = prevFileList.filter((file) => {
-      return !currentFileList.includes(file);
-    });
-    taskDetails.filesAdded = filesAdded;
-    taskDetails.filesDeleted = filesDeleted;
-
-    taskDetails.fileList = currentFileList;
+    if (taskDetails.status === constants.COMPLETED) {
+      let currentFileList = taskDetails.fileList.split(" ");
+      let filesAdded = currentFileList.filter((file) => {
+        return !prevFileList.includes(file);
+      });
+      let filesDeleted = prevFileList.filter((file) => {
+        return !currentFileList.includes(file);
+      });
+      taskDetails.filesAdded = filesAdded;
+      taskDetails.filesDeleted = filesDeleted;
+      taskDetails.fileList = currentFileList;
+    }
     taskDetails.totalTime = moment(taskDetails.endTime).diff(
       moment(taskDetails.startTime),
       "millisecond"
