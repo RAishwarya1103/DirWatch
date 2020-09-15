@@ -2,7 +2,7 @@
 const cron = require("node-cron");
 const serviceController = require("./src/Controller/service");
 const { DirectoryMonitor } = require("./src/directoryMonitoring");
-const { logger, sequelize } = require("./src/utils");
+const { logger } = require("./src/utils");
 const { getConfigURL } = require("./config");
 
 const getActiveConfigURL = getConfigURL;
