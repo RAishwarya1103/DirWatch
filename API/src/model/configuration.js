@@ -31,7 +31,9 @@ const Configuration = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
+    createdAt: Sequelize.DATE(6),
+    updatedAt: Sequelize.DATE(6),
   },
-  { freezeTableName: true, timestamps: false }
+  { freezeTableName: true }
 );
 module.exports = Configuration;
