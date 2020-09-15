@@ -38,4 +38,3 @@ var logger = createLogger({
   exitOnError: false,
 });
 module.exports = logger;
-// level: env === "development" ? "verbose" : "info",

@@ -62,7 +62,8 @@ exports.createConfig = async (req, res, next) => {
     const interval = req.body.interval;
     const isActive = req.body.isActive;
     const period = req.body.period;
-    const result = await updateAllConfigStatus(false);
+    const result =
+      isActive === "true" ? await updateAllConfigStatus(false) : true;
     if (result) {
       await Configuration.create({
         directory: directory,
@@ -99,17 +100,23 @@ exports.updateConfigStatus = async (req, res, next) => {
     }
     const isActive = req.body.isActive;
     const configId = req.params.configId;
-    await Configuration.update(
-      { isActive: isActive },
-      {
-        where: {
-          id: {
-            [Op.eq]: configId,
+    let result =
+      isActive === "true" ? await updateAllConfigStatus(false) : true;
+    if (result) {
+      await Configuration.update(
+        { isActive: isActive },
+        {
+          where: {
+            id: {
+              [Op.eq]: configId,
+            },
           },
-        },
-      }
-    );
-    res.status(200).json({ message: "Updated status" });
+        }
+      );
+      res.status(200).json({ message: "Updated status" });
+    } else {
+      throw new Error("error occured while updating database");
+    }
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

@@ -3,8 +3,9 @@ const cron = require("node-cron");
 const serviceController = require("./src/Controller/service");
 const { DirectoryMonitor } = require("./src/directoryMonitoring");
 const { logger, sequelize } = require("./src/utils");
+const { getConfigURL } = require("./config");
 
-const getActiveConfigURL = `http://localhost:4000/configuration/activeconfig`;
+const getActiveConfigURL = getConfigURL;
 
 async function getConfigAndStartTask() {
   logger.debug(`Entered function getConfigAndStartTask`);
